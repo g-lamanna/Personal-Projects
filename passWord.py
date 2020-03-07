@@ -32,6 +32,7 @@ def random_password_generator():
     for i in range(16):
         new_pass += random.choice(characters)
     print (new_pass)
+def add_credentials():
     
     
     
