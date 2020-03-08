@@ -67,13 +67,24 @@ def add():
             else:
                 add()
                 return user_pass
-    
-    
-    
-    
-    
-    
-    
-
+def search_pass():
+    file = "/Users/gabriel/Documents/projects/pandora.txt"
+    with open(file,"r") as file_container:
+        pass_lines = file_container.readlines()
+        char_removed = "[]''"
+        target_site = ""
+        new_str_site = ""
+        while target_site != "n":
+            print("What service information would you like to see?")
+            target_site = input()
+            for site in pass_lines:
+                if target_site in site:
+                    new_str_site += site
+                    for char in char_removed:
+                        new_str_site = new_str_site.replace(char," ")
+                    print(new_str_site)
+                    return new_str_site
+            print("Sorry the service/site you have entered does not exist, try again") 
+            
 passManager()
 
