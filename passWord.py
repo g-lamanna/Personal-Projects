@@ -8,7 +8,7 @@ Please Enter Your Password to Continue....
 userPass = input()
 
 def passManager():
-    masterPass = 'fataViamInven1ent'
+    masterPass = 'xxxxxxxxx'
     if userPass == masterPass:
         password_introduction()
 def password_introduction():
@@ -19,10 +19,12 @@ def password_introduction():
     -(R)andom Password
     ''')
     user_answer = input()
-    if user_answer == "r":
+    if user_answer == "R":
         random_password_generator()
-    elif user_answer == "a":
+    elif user_answer == "A":
         add()
+    elif user_answer =="S":
+        search_pass()
     else:
         print("Please Try again")
         password_introduction()
@@ -43,7 +45,7 @@ def random_password_generator():
     print(new_pass)
     return (new_pass)
 def add():
-    file = "/Users/gabriel/Documents/projects/pandora.txt"
+    file = "$PATH_TO_FILE"
     with open(file,"a+") as file_container:
         user_pass = []
         print("Add Site/Service")
@@ -60,22 +62,22 @@ def add():
         file_container.write('\n')
         cont = ""
         while cont != 'N':
-            print("Do you want to continue? 'No' to stop")
+            print("Do you want to continue? 'N' to stop")
             cont = input()
             if cont == "N":
                 break
             else:
                 add()
-                return user_pass
+                return user_pass 
 def search_pass():
-    file = "/Users/gabriel/Documents/projects/pandora.txt"
+    file = "$PATH_TO_FILE"
     with open(file,"r") as file_container:
         pass_lines = file_container.readlines()
         char_removed = "[]''"
         target_site = ""
         new_str_site = ""
-        while target_site != "n":
-            print("What service information would you like to see?")
+        while target_site != "N":
+            print("What service information would you like to see?'N' to exit")
             target_site = input()
             for site in pass_lines:
                 if target_site in site:
@@ -85,6 +87,7 @@ def search_pass():
                     print(new_str_site)
                     return new_str_site
             print("Sorry the service/site you have entered does not exist, try again") 
-            
+    
 passManager()
+
 
