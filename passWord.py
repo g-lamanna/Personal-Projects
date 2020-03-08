@@ -1,9 +1,7 @@
 #Hello World
 
 print('''*******Master Password Manager*******
-
 Please Enter Your Password to Continue....
-
 ''')
 userPass = input()
 
@@ -89,5 +87,3 @@ def search_pass():
             print("Sorry the service/site you have entered does not exist, try again") 
     
 passManager()
-
-
