@@ -43,18 +43,25 @@ def random_password_generator():
     print(new_pass)
     return (new_pass)
 def add():
-    file = "$PATH_TO_FILE"
+    file = "$PATH"
     with open(file,"a+") as file_container:
         user_pass = []
         print("Add Site/Service")
         site = input()
         print("Add Username ")
         user_name = input()
-        print("Add Password")
-        password = input()
+        print("""
+        (N)ew password
+        (R)andom password
+        """)
+        user_password_resp = input()
+        if user_password_resp == 'R':
+            real_pass = random_password_generator()
+        elif user_password_resp == 'N':
+            real_pass = input()
         user_pass.append(site)
         user_pass.append(user_name)
-        user_pass.append(password)
+        user_pass.append(real_pass)
         string_pass = str(user_pass).replace(",",":")
         file_container.write(string_pass)
         file_container.write('\n')
@@ -87,3 +94,4 @@ def search_pass():
             print("Sorry the service/site you have entered does not exist, try again") 
     
 passManager()
+
