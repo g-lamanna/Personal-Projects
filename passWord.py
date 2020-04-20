@@ -90,8 +90,12 @@ def search_pass():
                     for char in char_removed:
                         new_str_site = new_str_site.replace(char," ")
                     print(new_str_site)
-                    return new_str_site
-            print("Sorry the service/site you have entered does not exist, try again") 
-    
+                    redun = input("Would you like to search for more? 'N' to exit ")
+                    if redun == "N":
+                        exit()
+                    else:
+                        search_pass()
+            print("Sorry, information does not exist, try again")
+            edit_creds()
 passManager()
 
