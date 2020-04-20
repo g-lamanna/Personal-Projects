@@ -6,7 +6,7 @@ Please Enter Your Password to Continue....
 userPass = input()
 
 def passManager():
-    masterPass = 'xxxxxxxxx'
+    masterPass = 'xxxx'
     if userPass == masterPass:
         password_introduction()
 def password_introduction():
@@ -43,7 +43,7 @@ def random_password_generator():
     print(new_pass)
     return (new_pass)
 def add():
-    file = "$PATH"
+    file = "PATH_TO_FILE"
     with open(file,"a+") as file_container:
         user_pass = []
         print("Add Site/Service")
@@ -75,7 +75,7 @@ def add():
                 add()
                 return user_pass 
 def search_pass():
-    file = "$PATH_TO_FILE"
+    file = "PATH_TO_FILE"
     with open(file,"r") as file_container:
         pass_lines = file_container.readlines()
         char_removed = "[]''"
