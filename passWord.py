@@ -96,6 +96,6 @@ def search_pass():
                     else:
                         search_pass()
             print("Sorry, information does not exist, try again")
-            edit_creds()
+            search_pass()
 passManager()
 
