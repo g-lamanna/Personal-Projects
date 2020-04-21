@@ -1,8 +1,7 @@
-#Hello World
-
-print('''*******Master Password Manager*******
-Please Enter Your Password to Continue....
-''')
+print('''
+    *******Master Password Manager*******
+    Please Enter Your Password to Continue....
+    ''')
 userPass = input()
 
 def passManager():
@@ -11,11 +10,12 @@ def passManager():
         password_introduction()
 def password_introduction():
     print('''
-    ***** What would you like to do? ******
-    -(A)dd new password and username 
-    -(S)earch Passwords by Service
-    -(R)andom Password
-    ''')
+        ***** What would you like to do? ******
+        -(A)dd new password and username
+        -(S)earch Passwords by Service
+        -(R)andom Password
+        -(V)iew all credentials
+        ''')
     user_answer = input()
     if user_answer == "R":
         random_password_generator()
@@ -23,6 +23,8 @@ def password_introduction():
         add()
     elif user_answer =="S":
         search_pass()
+    elif user_answer =="V":
+        expand_file()
     else:
         print("Please Try again")
         password_introduction()
@@ -43,7 +45,6 @@ def random_password_generator():
     print(new_pass)
     return (new_pass)
 def add():
-    file = "PATH_TO_FILE"
     with open(file,"a+") as file_container:
         user_pass = []
         print("Add Site/Service")
@@ -51,9 +52,9 @@ def add():
         print("Add Username ")
         user_name = input()
         print("""
-        (N)ew password
-        (R)andom password
-        """)
+            (N)ew password
+            (R)andom password
+            """)
         user_password_resp = input()
         if user_password_resp == 'R':
             real_pass = random_password_generator()
@@ -73,9 +74,8 @@ def add():
                 break
             else:
                 add()
-                return user_pass 
+                return user_pass
 def search_pass():
-    file = "PATH_TO_FILE"
     with open(file,"r") as file_container:
         pass_lines = file_container.readlines()
         char_removed = "[]''"
@@ -96,6 +96,8 @@ def search_pass():
                     else:
                         search_pass()
             print("Sorry, information does not exist, try again")
-            search_pass()
+            edit_creds()
+def expand_file():
+    with open(file) as file_container:
+        print(file_container.read())
 passManager()
-
