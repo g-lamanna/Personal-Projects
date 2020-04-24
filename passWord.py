@@ -1,3 +1,5 @@
+#Hello World
+file = " "
 print('''
     *******Master Password Manager*******
     Please Enter Your Password to Continue....
@@ -15,6 +17,7 @@ def password_introduction():
         -(S)earch Passwords by Service
         -(R)andom Password
         -(V)iew all credentials
+        -(Q)uit
         ''')
     user_answer = input()
     if user_answer == "R":
@@ -25,6 +28,8 @@ def password_introduction():
         search_pass()
     elif user_answer =="V":
         expand_file()
+    elif user_answer =="Q":
+        exit()
     else:
         print("Please Try again")
         password_introduction()
@@ -96,8 +101,10 @@ def search_pass():
                     else:
                         search_pass()
             print("Sorry, information does not exist, try again")
-            edit_creds()
+            search_pass
 def expand_file():
     with open(file) as file_container:
         print(file_container.read())
 passManager()
+
+
