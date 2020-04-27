@@ -1,12 +1,12 @@
-#Hello World
-file = " "
+import json
+file = "$PATH_TO_FILE"
 print('''
     *******Master Password Manager*******
     Please Enter Your Password to Continue....
     ''')
 userPass = input()
 
-def passManager():
+def master():
     masterPass = 'xxxx'
     if userPass == masterPass:
         password_introduction()
@@ -14,8 +14,9 @@ def password_introduction():
     print('''
         ***** What would you like to do? ******
         -(A)dd new password and username
-        -(S)earch Passwords by Service
-        -(R)andom Password
+        -(S)earch passwords by service
+        -Editing option available here
+        -(R)andom password
         -(V)iew all credentials
         -(Q)uit
         ''')
@@ -50,61 +51,61 @@ def random_password_generator():
     print(new_pass)
     return (new_pass)
 def add():
-    with open(file,"a+") as file_container:
-        user_pass = []
-        print("Add Site/Service")
-        site = input()
-        print("Add Username ")
-        user_name = input()
-        print("""
-            (N)ew password
-            (R)andom password
-            """)
-        user_password_resp = input()
-        if user_password_resp == 'R':
-            real_pass = random_password_generator()
-        elif user_password_resp == 'N':
-            real_pass = input()
-        user_pass.append(site)
-        user_pass.append(user_name)
-        user_pass.append(real_pass)
-        string_pass = str(user_pass).replace(",",":")
-        file_container.write(string_pass)
-        file_container.write('\n')
-        cont = ""
-        while cont != 'N':
-            print("Do you want to continue? 'N' to stop")
-            cont = input()
-            if cont == "N":
-                break
-            else:
-                add()
-                return user_pass
+    with open(file, 'r+') as f:
+        data = json.load(f)
+        service = input("Enter Service ")
+        username = input("Enter Username ")
+        rando = input("Would you like to randomize password?" )
+        if rando == "yes":
+            password = random_password_generator()
+        elif rando == "no":
+            password = input("Enter Password ")
+        vals=[]
+        vals.append(username)
+        vals.append(password)
+        data[service] = vals # <--- add `service` value.
+        f.seek(0)        # <--- should reset file position to the beginning.
+        json.dump(data, f, indent=4)
+        f.truncate()
+        quitt = input("'N' to quit")
+        if quitt =="N":
+            exit()
+        else:
+            master()
 def search_pass():
-    with open(file,"r") as file_container:
-        pass_lines = file_container.readlines()
-        char_removed = "[]''"
-        target_site = ""
-        new_str_site = ""
-        while target_site != "N":
-            print("What service information would you like to see?'N' to exit")
-            target_site = input()
-            for site in pass_lines:
-                if target_site in site:
-                    new_str_site += site
-                    for char in char_removed:
-                        new_str_site = new_str_site.replace(char," ")
-                    print(new_str_site)
-                    redun = input("Would you like to search for more? 'N' to exit ")
-                    if redun == "N":
-                        exit()
-                    else:
-                        search_pass()
-            print("Sorry, information does not exist, try again")
-            search_pass
+    with open(file,"r+") as fp:
+        data = json.load(fp)
+        user = input("What service do you wish to find? ")
+        for i in data:
+            if user in i:
+                print(i,data[i])
+        edit_req = input("Edit? ")
+        if edit_req == "Y":
+            new_data = data.get(i,"")
+            print("[Username,Password]")
+            print(new_data)
+            user_or_pass = input("Edit username or password?")
+            if user_or_pass == "user":
+                new_user = input("New Username: ")
+                new_data[0] = new_user
+                data[i] = new_data
+                print("Success! Password changed")
+                fp.seek(0)        # <--- should reset file position to the beginning.
+                json.dump(data, fp, indent=2)
+                fp.truncate()
+            elif user_or_pass == "pass":
+                new_user = input("New Password: ")
+                new_data[1] = new_user
+                data[i] = new_data
+                print("Success! Password changed")
+                fp.seek(0)        # <--- should reset file position to the beginning.
+                json.dump(data, fp, indent=2)
+                fp.truncate()
+        else:
+            exit()
 def expand_file():
     with open(file) as file_container:
         print(file_container.read())
-passManager()
+master()
 
 
