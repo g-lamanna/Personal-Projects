@@ -36,7 +36,7 @@ def password_introduction():
         password_introduction()
     cont = ''
     while cont !="N":
-        print("Is there anything else? ")
+        print("Is there anything else? 'N' to exit")
         cont = input()
         if cont == 'N':
             break
@@ -55,7 +55,7 @@ def add():
         data = json.load(f)
         service = input("Enter Service ")
         username = input("Enter Username ")
-        rando = input("Would you like to randomize password?" )
+        rando = input("Would you like to randomize password? 'yes or no' " )
         if rando == "yes":
             password = random_password_generator()
         elif rando == "no":
@@ -79,33 +79,39 @@ def search_pass():
         for i in data:
             if user in i:
                 print(i,data[i])
-        edit_req = input("Edit? ")
+                searched_data = data[i]
+                new_key = i
+        edit_req = input("Edit? 'Y' to continue ")
         if edit_req == "Y":
-            new_data = data.get(i,"")
-            print("[Username,Password]")
-            print(new_data)
-            user_or_pass = input("Edit username or password?")
+            user_or_pass = input("Edit username or password? 'user, pass, or any other character to exit'")
             if user_or_pass == "user":
+                print("[Username,Password]")
+                print(i,data[i])
                 new_user = input("New Username: ")
-                new_data[0] = new_user
-                data[i] = new_data
-                print("Success! Password changed")
+                searched_data[0] = new_user
+                data[new_key] = searched_data
+                print("Success! Username changed")
                 fp.seek(0)        # <--- should reset file position to the beginning.
                 json.dump(data, fp, indent=2)
                 fp.truncate()
             elif user_or_pass == "pass":
                 new_user = input("New Password: ")
-                new_data[1] = new_user
-                data[i] = new_data
+                searched_data[1] = new_user
+                data[new_key] = searched_data
                 print("Success! Password changed")
                 fp.seek(0)        # <--- should reset file position to the beginning.
                 json.dump(data, fp, indent=2)
                 fp.truncate()
+            else:
+                pass
+        
         else:
             exit()
 def expand_file():
     with open(file) as file_container:
         print(file_container.read())
 master()
+
+
 
 
