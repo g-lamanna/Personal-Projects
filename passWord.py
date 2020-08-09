@@ -7,7 +7,7 @@ print('''
 userPass = input()
 
 def master():
-    masterPass = 'xxxx'
+    masterPass = 'xxx'
     if userPass == masterPass:
         password_introduction()
 def password_introduction():
