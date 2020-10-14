@@ -40,15 +40,15 @@ class Stack:
             return self.head_node.get_value()
             
 
-    #Checks if stack is empty
+    #help to check if stack is empty
     def is_empty(self):
         return self.size == 0
 
-    #Checks if stack has enough space for more nodes
+    #helperto check if stack has enough space for more nodes
     def has_space(self):
         return self.limit > self.size
     
-    #Return name of stack
+    #helper to return name of stack
     def get_name(self):
         return self.name
     
