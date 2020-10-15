@@ -65,3 +65,4 @@ class Stack:
         #reverse values in list
         pointer_list.reverse()
         print("{}:{}".format(self.get_name(),pointer_list))
+
