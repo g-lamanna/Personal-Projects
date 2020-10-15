@@ -53,11 +53,15 @@ class Stack:
     def get_name(self):
         return self.name
     
+    #Printing out stacks
     def print_items(self):
+        #assign head node to var 
         pointer = self.head_node
         pointer_list = []
         while pointer:
+            #append node values to list and assign next node
             pointer_list.append(pointer.get_value())
             pointer = pointer.get_next_node()
+        #reverse values in list
         pointer_list.reverse()
         print("{}:{}".format(self.get_name(),pointer_list))

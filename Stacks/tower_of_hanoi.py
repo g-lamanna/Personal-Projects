@@ -32,6 +32,7 @@ def get_input():
     while True:
         print("Here is a list of options:")
         for i in range(len(stacks)):
+            #grab name and first letter of name
             name = stacks[i].get_name()
             letter = choice[i]
             print("Enter {} for {}".format(letter,name))
@@ -45,15 +46,17 @@ def get_input():
                     return stacks[i].get_name()
 get_input()
 
-
+#keep track of moves
 num_of_moves = 0
 
-
+#condition to exit game
 while right_stack.get_size() != num_disks:
     print("\n\n...Current stack...")
+    #print disks and corresponding stacks
     for i in range(len(stacks)):
         stacks[i].print_items()
     while True:
+        #which stack to move from
         print("\nWhich stack would you like to move from?\n ")
         from_stack = get_input()
         if from_stack == "left":
@@ -67,15 +70,20 @@ while right_stack.get_size() != num_disks:
             continue
         print("\nWhich stack would you like to move to?\n ")
         to_stack = get_input()
+        #which stack to move to
         if to_stack == "left":
             to_stack = left_stack
         elif to_stack == "center":
             to_stack = center_stack
         elif to_stack == "right":
             to_stack = right_stack
+        #game conditions to be met in order to move
         if to_stack.is_empty() or from_stack.peek() > to_stack.peek():
+            #remove disk from top of stack
             disk = from_stack.pop()
+            #push disk on top of new stack
             to_stack.push(disk)
+            #increment number of moves
             num_of_moves += 1
             break
         else:
