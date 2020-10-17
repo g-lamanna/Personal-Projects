@@ -21,6 +21,8 @@ while num_disks < 3:
 #calculate # of optimal moves given num_disks
 num_optimal_moves = (2**num_disks) - 1
 
+print("Given the number of disks you chose, the least amount of moves it will take to complete is {}".format(num_optimal_moves))
+
 #Push all disks to left stack
 for i in range(num_disks,0,-1):
     left_stack.push(i)
@@ -78,14 +80,15 @@ while right_stack.get_size() != num_disks:
         elif to_stack == "right":
             to_stack = right_stack
         #game conditions to be met in order to move
-        if to_stack.is_empty() or from_stack.peek() > to_stack.peek():
+        if to_stack.is_empty() or from_stack.peek() < to_stack.peek():
             #remove disk from top of stack
             disk = from_stack.pop()
             #push disk on top of new stack
             to_stack.push(disk)
             #increment number of moves
             num_of_moves += 1
+            print("Move {}".format(num_of_moves))
             break
         else:
             print("\n\nInvalid Move, Try again")
-print("\n\nYou completed the game in {} moves and the optimal number of moves is {}".format(num_user_moves,num_optimal_moves))
+print("\n\nYou completed the game in {} moves and the optimal number of moves is {}".format(num_of_moves,num_optimal_moves))
