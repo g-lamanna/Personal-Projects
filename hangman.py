@@ -6,7 +6,7 @@ body_parts_list = ["LEFT LEG","HEAD","LEFT ARM","RIGHT ARM","RIGHT LEG"]
 
 #randomly generate word
 def hang_word():
-    words = ["apple","ham","ghost","barcelona","apollo"]
+    words = ["i love you "]
     return random.choice(words)
 
 def hang_game():
@@ -63,7 +63,10 @@ def hang_board(word,letter=None):
     if letter==None:
         board_str=[]
         for i in range(len(word)):
-            board_str.append("_")
+            if word[i] == " ":
+                board_str.append(word[i])
+            else:
+                board_str.append("_")
         return board_str
 
 def main():
