@@ -1,12 +1,11 @@
 import random
-from collections import Counter
 
 already_guessed = []
 body_parts_list = ["LEFT LEG","HEAD","LEFT ARM","RIGHT ARM","RIGHT LEG"]
 
 #randomly generate word
 def hang_word():
-    words = ["i love you "]
+    words = ["i love you","Hello world","Barcelona"]
     return random.choice(words)
 
 def hang_game():
@@ -35,6 +34,7 @@ def guess(word,board):
     letter_index = 0
     c = Counter(word)
     user_guess = input("Guess a letter: ")
+    user_guess = user_guess.lower()
     while user_guess in already_guessed:
         print("Try again")
         user_guess = input("Guess a letter: ")
