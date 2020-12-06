@@ -5,7 +5,7 @@ body_parts_list = ["LEFT LEG","HEAD","LEFT ARM","RIGHT ARM","RIGHT LEG"]
 
 #randomly generate word
 def hang_word():
-    words = ["i love you","Hello world","Barcelona"]
+    words = ["apple"]
     return random.choice(words)
 
 def hang_game():
@@ -13,14 +13,15 @@ def hang_game():
     new_board = hang_board(word)
     print("\t\t\t{}\t\t\t".format(new_board))
     current_board = guess(word,new_board)
-    while win_or_lose(current_board) != True:
+    while win_or_lose(current_board,word) != True:
         print("\t\t\t{}\t\t\t".format(new_board))
         guess(word,current_board)
-def win_or_lose(board):
+def win_or_lose(board,word):
     if "_" in board:
         return False
     else:
         print("Congrats! You won!")
+        print("The word was {}".format(word))
         exit()
 
 def body_parts(body_parts_list):
@@ -32,7 +33,6 @@ def body_parts(body_parts_list):
         
 def guess(word,board):
     letter_index = 0
-    c = Counter(word)
     user_guess = input("Guess a letter: ")
     user_guess = user_guess.lower()
     while user_guess in already_guessed:
