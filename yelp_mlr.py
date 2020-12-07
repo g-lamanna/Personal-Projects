@@ -4,12 +4,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 import numpy as np
 
-business = pd.read_json("/Users/gabriel/Downloads/yelp_regression_project/yelp_business.json",lines=True)
-user = pd.read_json("/Users/gabriel/Downloads/yelp_regression_project/yelp_user.json",lines=True)
-review = pd.read_json("/Users/gabriel/Downloads/yelp_regression_project/yelp_review.json",lines=True)
-tip = pd.read_json("/Users/gabriel/Downloads/yelp_regression_project/yelp_tip.json",lines=True)
-checkin = pd.read_json("/Users/gabriel/Downloads/yelp_regression_project/yelp_checkin.json",lines=True)
-photo = pd.read_json("/Users/gabriel/Downloads/yelp_regression_project/yelp_photo.json",lines=True)
+business = pd.read_json("$PATH_TO_JSON_FILE",lines=True)
+user = pd.read_json("$PATH_TO_JSON_FILE",lines=True)
+review = pd.read_json("$PATH_TO_JSON_FILE",lines=True)
+tip = pd.read_json("$PATH_TO_JSON_FILE",lines=True)
+checkin = pd.read_json("$PATH_TO_JSON_FILE",lines=True)
+photo = pd.read_json("$PATH_TO_JSON_FILE",lines=True)
 
 df = pd.merge(business,review,how="left",on="business_id")
 df = pd.merge(df, user, how='left', on='business_id')
