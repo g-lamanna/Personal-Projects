@@ -6,46 +6,49 @@ from datetime import datetime
 from prettytable import PrettyTable
 from colorama import Fore, Back, Style
 
+"""
+Crypto Currency Manager
+
+"""
+
+#API call
 url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
 url_end = "?structure=array&convert=USD"
 parameters = {
   'limit':"10",
   'convert':'USD'
 }
+#API key for successful call
 headers = {
   'Accepts': 'application/json',
-  'X-CMC_PRO_API_KEY': '<API Key>',
+  'X-CMC_PRO_API_KEY': "<API KEY>",
 }
 
 session = Session()
 session.headers.update(headers)
 
+#Execute if API call is successful 
 try:
+    #Get requested API
     response = session.get(url, params=parameters)
-    results = response.json()
-    data_list_length = len(results["data"])
-
-    data = results["data"]
-    currency_ticker = {}
-    for crypto_index in range(data_list_length):
-        currency_id = data[crypto_index]["id"]
-        currency_sym = data[crypto_index]["symbol"]
-        currency_ticker[currency_sym] = currency_id
 
     print()
     print("MY PORTFOLIO")
     print()
 
+    #Instantiate portfolio value as a float
     my_portfolio = 0.00
 
     #How recent the data is
     last_updated = 0
 
+    #Adding in table labels
     table = PrettyTable(["Asset","Amount Owned","Price","1h","24h","7d","Last Updated"])
-    portfolio_path = "$PATH_TO_TEXT_TILE"
+    portfolio_path = "$PATH_TO_FILE"
     with open(portfolio_path,"r") as file:
         for line in file:
             symbol, amount = line.split()
+            #API call for each piece of data to utilize in the prettytable
             symbol_url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=" +symbol
         
             request = session.get(symbol_url)
@@ -53,6 +56,7 @@ try:
 
             #print(json.dumps(request_results,sort_keys=True,indent=4))
 
+            #Get all the data
             currency_data = request_results["data"][symbol]
             currency_name = currency_data["name"]
             currency_last_updated = currency_data["last_updated"]
@@ -63,6 +67,7 @@ try:
             currency_7d_change = quote["percent_change_7d"]
             currency_price = quote["price"]
 
+            #Color terminal data in the table based off positive or negative vals
             if currency_1h_change > 0:
                 currency_1h_change = Back.GREEN + str(currency_1h_change) + "%" + Style.RESET_ALL
             else:
@@ -99,6 +104,6 @@ try:
     print("Total portfolio value is {} ${}{}".format(Back.GREEN,portfolio_val_str,Style.RESET_ALL))
 
 
-
+#print error if API call is unsuccessful
 except (ConnectionError, Timeout, TooManyRedirects) as e:
     print(e)
