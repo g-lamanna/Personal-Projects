@@ -21,7 +21,7 @@ parameters = {
 #API key for successful call
 headers = {
   'Accepts': 'application/json',
-  'X-CMC_PRO_API_KEY': "<API KEY>",
+  'X-CMC_PRO_API_KEY': '$$KEY$$',
 }
 
 session = Session()
@@ -44,7 +44,7 @@ try:
 
     #Adding in table labels
     table = PrettyTable(["Asset","Amount Owned","Price","1h","24h","7d","Last Updated"])
-    portfolio_path = "$PATH_TO_FILE"
+    portfolio_path = "$PATH_TO_PORTFOLIO_DATA"
     with open(portfolio_path,"r") as file:
         for line in file:
             symbol, amount = line.split()
@@ -87,7 +87,7 @@ try:
 
             my_portfolio += value_of_asset
 
-            value_str = "{:,}".format(round(value_of_asset,7))
+            value_str = "{:,}".format(round(value_of_asset,2))
 
             table.add_row([currency_name + " (" + currency_symbol + ")",
                         "$" + str(value_of_asset),
@@ -99,7 +99,7 @@ try:
     print(table)
     print()
 
-    portfolio_val_str = "{:,}".format(round(my_portfolio,7))
+    portfolio_val_str = "{:,}".format(round(my_portfolio,2))
 
     print("Total portfolio value is {} ${}{}".format(Back.GREEN,portfolio_val_str,Style.RESET_ALL))
 
